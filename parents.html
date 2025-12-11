@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для родителей | Банщикова Валентина Николаевна</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --primary: #6BAED6;
+            --primary-light: #9ECAE1;
+            --primary-dark: #4292C6;
+            --accent: #FDAE6B;
+            --text: #2D3748;
+            --text-light: #718096;
+            --background: #FFFFFF;
+            --background-light: #F7FAFC;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(107, 174, 214, 0.3);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #E2E8F0;
+            height: 100%;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .accordion-header {
+            padding: 20px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- Шапка сайта -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <i class="fas fa-comments text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-[var(--text)] text-lg">В.Н. Банщикова</div>
+                        <div class="text-sm text-[var(--text-light)]">Логопед-дефектолог</div>
+                    </div>
+                </div>
+
+                <!-- Навигация для компьютеров -->
+                <nav class="hidden md:flex gap-8">
+                    <a href="index.html" class="nav-link text-[var(--text)] font-medium">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                    <a href="about.html" class="nav-link text-[var(--text)] font-medium">Обо мне</a>
+                    <a href="services.html" class="nav-link text-[var(--text)] font-medium">Услуги</a>
+                    <a href="parents.html" class="nav-link text-[var(--primary)] font-medium border-b-2 border-[var(--primary)]">Для родителей</a>
+                    <a href="lessons.html" class="nav-link text-[var(--text)] font-medium">Мои уроки</a>
+                    <a href="contacts.html" class="nav-link text-[var(--text)] font-medium">Контакты</a>
+                </nav>
+
+                <button id="menu-btn" class="md:hidden text-[var(--text)]">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Мобильное меню -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
+                <div class="flex flex-col gap-3">
+                    <a href="index.html" class="nav-link text-[var(--text)] font-medium py-2">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                    <a href="about.html" class="nav-link text-[var(--text)] font-medium py-2">Обо мне</a>
+                    <a href="services.html" class="nav-link text-[var(--text)] font-medium py-2">Услуги</a>
+                    <a href="parents.html" class="nav-link text-[var(--primary)] font-medium py-2 border-l-4 border-[var(--primary)] pl-3">Для родителей</a>
+                    <a href="lessons.html" class="nav-link text-[var(--text)] font-medium py-2">Мои уроки</a>
+                    <a href="contacts.html" class="nav-link text-[var(--text)] font-medium py-2">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="bg-gradient-to-br from-[var(--background-light)] to-blue-50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">Для родителей</h1>
+                <p class="text-xl text-[var(--text-light)]">Полезная информация и консультации по развитию речи детей</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Консультации для родителей -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-[var(--primary)] text-white rounded-2xl p-8 text-center slide-up mb-12">
+                    <h2 class="text-2xl font-bold mb-4">Консультации для родителей</h2>
+                    <p class="text-xl mb-4">Каждую среду с 18:00 до 19:00</p>
+                    <p class="text-lg opacity-90">Место проведения: МАДОУ "Детский сад № 419" г. Перми</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="info-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-calendar-check text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Что такое консультация?</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Это возможность получить профессиональные ответы на ваши вопросы о развитии речи ребенка, 
+                        обсудить особенности и получить конкретные рекомендации.
+                    </p>
+                    <ul class="feature-list text-[var(--text-light)] space-y-2">
+                        <li>Бесплатная индивидуальная консультация</li>
+                        <li>Анализ речевого развития вашего ребенка</li>
+                        <li>Практические рекомендации для занятий дома</li>
+                        <li>Ответы на все ваши вопросы</li>
+                    </ul>
+                </div>
+
+                <div class="info-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-question-circle text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Когда обращаться?</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Консультация будет полезна, если вас что-то беспокоит в речевом развитии ребенка:
+                    </p>
+                    <ul class="feature-list text-[var(--text-light)] space-y-2">
+                        <li>Ребенок не выговаривает некоторые звуки</li>
+                        <li>Бедный словарный запас для его возраста</li>
+                        <li>Проблемы с построением предложений</li>
+                        <li>Заикание или другие нарушения темпа речи</li>
+                        <li>Подготовка к школе и развитие речи</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Полезные советы -->
+    <section class="py-16 bg-[var(--background-light)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-[var(--text)] mb-12">Полезные советы для родителей</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="info-card slide-up">
+                    <div class="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-book text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Чтение книг</h3>
+                    <p class="text-[var(--text-light)]">
+                        Читайте ребенку ежедневно. Обсуждайте прочитанное, задавайте вопросы, 
+                        просите пересказать содержание. Это развивает словарный запас и связную речь.
+                    </p>
+                </div>
+
+                <div class="info-card slide-up">
+                    <div class="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-comments text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Общение</h3>
+                    <p class="text-[var(--text-light)]">
+                        Больше разговаривайте с ребенком. Описывайте свои действия, 
+                        задавайте открытые вопросы, поощряйте диалог.
+                    </p>
+                </div>
+
+                <div class="info-card slide-up">
+                    <div class="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-gamepad text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Речевые игры</h3>
+                    <p class="text-[var(--text-light)]">
+                        Используйте игры для развития речи: "Скажи наоборот", 
+                        "Придумай рифму", "Опиши предмет" и другие.
+                    </p>
+                </div>
+
+                <div class="info-card slide-up">
+                    <div class="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-music text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Пение и стихи</h3>
+                    <p class="text-[var(--text-light)]">
+                        Пойте песни, учите стихи и потешки. Это развивает 
+                        речевой слух, чувство ритма и память.
+                    </p>
+                </div>
+
+                <div class="info-card slide-up">
+                    <div class="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-hand-paper text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Артикуляционная гимнастика</h3>
+                    <p class="text-[var(--text-light)]">
+                        Выполняйте простые упражнения для языка и губ 
+                        в игровой форме. Это укрепляет речевой аппарат.
+                    </p>
+                </div>
+
+                <div class="info-card slide-up">
+                    <div class="w-12 h-12 bg-[var(--primary)] rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-heart text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Похвала и поддержка</h3>
+                    <p class="text-[var(--text-light)]">
+                        Хвалите ребенка за любые успехи в речи. 
+                        Создавайте положительную атмосферу для общения.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Часто задаваемые вопросы -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center text-[var(--text)] mb-12">Часто задаваемые вопросы</h2>
+                
+                <div class="space-y-4">
+                    <!-- Вопрос 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="text-xl font-bold text-[var(--text)] flex-1">С какого возраста нужно обращаться к логопеду?</h3>
+                            <i class="fas fa-chevron-down text-[var(--primary)] transition-transform"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="pb-6 text-[var(--text-light)] leading-relaxed">
+                                Консультация логопеда может быть полезна уже с 2-3 лет. Однако основная работа 
+                                с детьми ведется с 5 до 7 лет, когда идет активная подготовка к школе и 
+                                формирование всех сторон речи.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вопрос 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="text-xl font-bold text-[var(--text)] flex-1">Как часто нужно заниматься с логопедом?</h3>
+                            <i class="fas fa-chevron-down text-[var(--primary)] transition-transform"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="pb-6 text-[var(--text-light)] leading-relaxed">
+                                Оптимальная частота занятий - 2-3 раза в неделю. Однако график занятий 
+                                определяется индивидуально в зависимости от особенностей ребенка и 
+                                сложности речевых нарушений.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вопрос 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="text-xl font-bold text-[var(--text)] flex-1">Нужно ли заниматься дома между занятиями?</h3>
+                            <i class="fas fa-chevron-down text-[var(--primary)] transition-transform"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="pb-6 text-[var(--text-light)] leading-relaxed">
+                                Да, домашние занятия очень важны! Регулярное выполнение рекомендаций 
+                                логопеда дома значительно ускоряет процесс коррекции. Я всегда даю 
+                                родителям конкретные задания для работы с ребенком между занятиями.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вопрос 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="text-xl font-bold text-[var(--text)] flex-1">Что такое фонематический слух и почему он важен?</h3>
+                            <i class="fas fa-chevron-down text-[var(--primary)] transition-transform"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="pb-6 text-[var(--text-light)] leading-relaxed">
+                                Фонематический слух - это способность различать звуки речи. Он является 
+                                основой для правильного звукопроизношения и в дальнейшем - для успешного 
+                                обучения чтению и письму. Развитие фонематического слуха - одна из 
+                                основных задач логопедической работы.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Вопрос 5 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <h3 class="text-xl font-bold text-[var(--text)] flex-1">Как подготовить ребенка к визиту к логопеду?</h3>
+                            <i class="fas fa-chevron-down text-[var(--primary)] transition-transform"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="pb-6 text-[var(--text-light)] leading-relaxed">
+                                Расскажите ребенку, что вы идете играть в интересные игры с тетей, 
+                                которая учит детей красиво говорить. Настройте его позитивно, 
+                                не упоминайте о возможных проблемах. Возьмите с собой сменную обувь.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Памятка для родителей -->
+    <section class="py-16 bg-[var(--background-light)]">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="info-card slide-up">
+                    <h2 class="text-2xl font-bold text-[var(--text)] mb-6 text-center">Памятка для родителей</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-[var(--text)] mb-4">Что способствует развитию речи:</h3>
+                            <ul class="feature-list text-[var(--text-light)] space-y-2">
+                                <li>Эмоциональное общение с рождения</li>
+                                <li>Совместное чтение книг</li>
+                                <li>Развитие мелкой моторики</li>
+                                <li>Разнообразные впечатления и опыт</li>
+                                <li>Позитивная речевая среда</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-[var(--text)] mb-4">Что может мешать:</h3>
+                            <ul class="feature-list text-[var(--text-light)] space-y-2">
+                                <li>Постоянный фон (телевизор, радио)</li>
+                                <li>"Сюсюканье" с ребенком</li>
+                                <li>Недостаток живого общения</li>
+                                <li>Исправление каждой ошибки</li>
+                                <li>Сравнение с другими детьми</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Призыв к действию -->
+    <section class="py-16 bg-[var(--primary)] text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Остались вопросы?</h2>
+            <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Приходите на консультацию - вместе мы найдем решение любой проблемы
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="contacts.html" class="bg-white text-[var(--primary)] px-8 py-4 rounded-lg font-bold hover:bg-opacity-90 transition-all duration-300 text-lg">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Записаться на консультацию
+                </a>
+                <a href="tel:+73422612253" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-[var(--primary)] transition-all duration-300 text-lg">
+                    <i class="fas fa-phone mr-2"></i>
+                    +7 (342) 261-22-53
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-[var(--text)] text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                            <i class="fas fa-comments text-white"></i>
+                        </div>
+                        <div class="font-bold text-lg">В.Н. Банщикова</div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Учитель-логопед-дефектолог. Профессиональная помощь в развитии речи детей 5-7 лет в Перми.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Контакты</h4>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-map-marker-alt text-[var(--primary-light)]"></i>
+                            <span>г. Пермь, ул. Пономарева, 91</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-phone text-[var(--primary-light)]"></i>
+                            <span>+7 (342) 261-22-53</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-[var(--primary-light)]"></i>
+                            <span>banshcikova81@mail.ru</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Расписание</h4>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div>Консультации для родителей:</div>
+                        <div class="font-semibold text-[var(--primary-light)]">Среда 18:00-19:00</div>
+                        <div>Место работы:</div>
+                        <div>МАДОУ "Детский сад № 419" г. Перми</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Навигация</h4>
+                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                        <a href="index.html" class="hover:text-[var(--primary-light)] transition-colors">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                        <a href="about.html" class="hover:text-[var(--primary-light)] transition-colors">Обо мне</a>
+                        <a href="services.html" class="hover:text-[var(--primary-light)] transition-colors">Услуги</a>
+                        <a href="parents.html" class="hover:text-[var(--primary-light)] transition-colors">Для родителей</a>
+                        <a href="lessons.html" class="hover:text-[var(--primary-light)] transition-colors">Мои уроки</a>
+                        <a href="contacts.html" class="hover:text-[var(--primary-light)] transition-colors">Контакты</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 Банщикова Валентина Николаевна. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Аккордеон для FAQ
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            
+            content.classList.toggle('active');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // Плавная прокрутка для ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

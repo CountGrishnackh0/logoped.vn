@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги | Банщикова Валентина Николаевна</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --primary: #6BAED6;
+            --primary-light: #9ECAE1;
+            --primary-dark: #4292C6;
+            --accent: #FDAE6B;
+            --text: #2D3748;
+            --text-light: #718096;
+            --background: #FFFFFF;
+            --background-light: #F7FAFC;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(107, 174, 214, 0.3);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #E2E8F0;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 8px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- Шапка сайта -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <i class="fas fa-comments text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-[var(--text)] text-lg">В.Н. Банщикова</div>
+                        <div class="text-sm text-[var(--text-light)]">Логопед-дефектолог</div>
+                    </div>
+                </div>
+
+                <!-- Навигация для компьютеров -->
+                <nav class="hidden md:flex gap-8">
+                    <a href="index.html" class="nav-link text-[var(--text)] font-medium">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                    <a href="about.html" class="nav-link text-[var(--text)] font-medium">Обо мне</a>
+                    <a href="services.html" class="nav-link text-[var(--primary)] font-medium border-b-2 border-[var(--primary)]">Услуги</a>
+                    <a href="parents.html" class="nav-link text-[var(--text)] font-medium">Для родителей</a>
+                    <a href="lessons.html" class="nav-link text-[var(--text)] font-medium">Мои уроки</a>
+                    <a href="contacts.html" class="nav-link text-[var(--text)] font-medium">Контакты</a>
+                </nav>
+
+                <button id="menu-btn" class="md:hidden text-[var(--text)]">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Мобильное меню -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
+                <div class="flex flex-col gap-3">
+                    <a href="index.html" class="nav-link text-[var(--text)] font-medium py-2">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                    <a href="about.html" class="nav-link text-[var(--text)] font-medium py-2">Обо мне</a>
+                    <a href="services.html" class="nav-link text-[var(--primary)] font-medium py-2 border-l-4 border-[var(--primary)] pl-3">Услуги</a>
+                    <a href="parents.html" class="nav-link text-[var(--text)] font-medium py-2">Для родителей</a>
+                    <a href="lessons.html" class="nav-link text-[var(--text)] font-medium py-2">Мои уроки</a>
+                    <a href="contacts.html" class="nav-link text-[var(--text)] font-medium py-2">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="bg-gradient-to-br from-[var(--background-light)] to-blue-50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">Услуги логопеда-дефектолога</h1>
+                <p class="text-xl text-[var(--text-light)]">Профессиональная коррекционная помощь детям 5-7 лет</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Цели работы -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto slide-up">
+                <div class="bg-[var(--background-light)] rounded-2xl p-8 mb-12">
+                    <h2 class="text-2xl font-bold text-[var(--text)] mb-6 text-center">Цель моей работы</h2>
+                    <p class="text-lg text-[var(--text-light)] leading-relaxed text-center">
+                        Целью работы учителя-логопеда в дошкольном учреждении является оказание необходимой 
+                        коррекционной помощи детям в возрасте от 5 до 7 лет. В логопедическую работу включаются 
+                        в первую очередь дети подготовительной и старшей групп.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основные услуги -->
+    <section class="py-16 bg-[var(--background-light)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-[var(--text)] mb-12">Основные направления работы</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Услуга 1 -->
+                <div class="service-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-ear-listening text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Фонематический слух</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Формирование и развитие фонематического слуха у детей с нарушениями речи
+                    </p>
+                    <ul class="feature-list text-sm text-[var(--text-light)] space-y-2">
+                        <li>Диагностика нарушений звуковосприятия</li>
+                        <li>Развитие слухового внимания</li>
+                        <li>Коррекция фонематического восприятия</li>
+                        <li>Различение звуков речи</li>
+                    </ul>
+                </div>
+
+                <!-- Услуга 2 -->
+                <div class="service-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-microphone text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Коррекция звукопроизношения</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Коррекция нарушений звуковосприятия и звукопроизношения
+                    </p>
+                    <ul class="feature-list text-sm text-[var(--text-light)] space-y-2">
+                        <li>Постановка правильного звукопроизношения</li>
+                        <li>Артикуляционная гимнастика</li>
+                        <li>Автоматизация звуков в речи</li>
+                        <li>Дифференциация смешиваемых звуков</li>
+                    </ul>
+                </div>
+
+                <!-- Услуга 3 -->
+                <div class="service-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-hands-helping text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Преодоление трудностей</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Своевременное предупреждение и преодоление трудностей речевого развития
+                    </p>
+                    <ul class="feature-list text-sm text-[var(--text-light)] space-y-2">
+                        <li>Ранняя диагностика речевых нарушений</li>
+                        <li>Профилактика нарушений письма и чтения</li>
+                        <li>Развитие речевой активности</li>
+                        <li>Коррекция темпо-ритмической организации речи</li>
+                    </ul>
+                </div>
+
+                <!-- Услуга 4 -->
+                <div class="service-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-comments text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Коммуникативные навыки</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Привитие детям навыков коммуникативного общения
+                    </p>
+                    <ul class="feature-list text-sm text-[var(--text-light)] space-y-2">
+                        <li>Развитие диалогической речи</li>
+                        <li>Формирование монологической речи</li>
+                        <li>Обучение правилам общения</li>
+                        <li>Развитие социально-коммуникативных навыков</li>
+                    </ul>
+                </div>
+
+                <!-- Услуга 5 -->
+                <div class="service-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-school text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Подготовка к школе</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Решение задач социального и речевого развития, подготовка к обучению
+                    </p>
+                    <ul class="feature-list text-sm text-[var(--text-light)] space-y-2">
+                        <li>Развитие связной речи</li>
+                        <li>Обогащение словарного запаса</li>
+                        <li>Формирование грамматического строя речи</li>
+                        <li>Подготовка к обучению грамоте</li>
+                    </ul>
+                </div>
+
+                <!-- Услуга 6 -->
+                <div class="service-card slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-4">Работа с педагогами и родителями</h3>
+                    <p class="text-[var(--text-light)] mb-4">
+                        Организация работы педагогов по формированию речевого развития детей
+                    </p>
+                    <ul class="feature-list text-sm text-[var(--text-light)] space-y-2">
+                        <li>Консультации для воспитателей</li>
+                        <li>Методическая помощь педагогам</li>
+                        <li>Работа с родителями</li>
+                        <li>Пропаганда логопедических знаний</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основные задачи -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center text-[var(--text)] mb-12">Основные задачи коррекционной работы</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="slide-up">
+                        <div class="bg-[var(--background-light)] rounded-2xl p-6 h-full">
+                            <h3 class="text-xl font-bold text-[var(--text)] mb-4 flex items-center gap-3">
+                                <div class="w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold">1</span>
+                                </div>
+                                Диагностика и обследование
+                            </h3>
+                            <ul class="space-y-2 text-[var(--text-light)]">
+                                <li>• Обследование детей всех возрастных групп</li>
+                                <li>• Выявление нарушений речевого развития</li>
+                                <li>• Определение структуры и тяжести нарушений</li>
+                                <li>• Комплексная оценка речевого статуса</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="slide-up">
+                        <div class="bg-[var(--background-light)] rounded-2xl p-6 h-full">
+                            <h3 class="text-xl font-bold text-[var(--text)] mb-4 flex items-center gap-3">
+                                <div class="w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold">2</span>
+                                </div>
+                                Индивидуальные занятия
+                            </h3>
+                            <ul class="space-y-2 text-[var(--text-light)]">
+                                <li>• Проведение индивидуальных занятий по устранению речевых нарушений</li>
+                                <li>• Разработка индивидуальных коррекционных программ</li>
+                                <li>• Систематическая работа над звукопроизношением</li>
+                                <li>• Контроль динамики развития</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="slide-up">
+                        <div class="bg-[var(--background-light)] rounded-2xl p-6 h-full">
+                            <h3 class="text-xl font-bold text-[var(--text)] mb-4 flex items-center gap-3">
+                                <div class="w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold">3</span>
+                                </div>
+                                Контроль и мониторинг
+                            </h3>
+                            <ul class="space-y-2 text-[var(--text-light)]">
+                                <li>• Осуществление логопедического контроля за речевым развитием детей</li>
+                                <li>• Мониторинг подготовки к обучению в школе</li>
+                                <li>• Оценка эффективности коррекционной работы</li>
+                                <li>• Ведение документации</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="slide-up">
+                        <div class="bg-[var(--background-light)] rounded-2xl p-6 h-full">
+                            <h3 class="text-xl font-bold text-[var(--text)] mb-4 flex items-center gap-3">
+                                <div class="w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold">4</span>
+                                </div>
+                                Взаимодействие со специалистами
+                            </h3>
+                            <ul class="space-y-2 text-[var(--text-light)]">
+                                <li>• Осуществление взаимосвязи с воспитателями</li>
+                                <li>• Взаимодействие с педагогом-психологом</li>
+                                <li>• Совместная работа с музыкальным руководителем</li>
+                                <li>• Координация с инструктором по ФИЗО</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кто такой дефектолог -->
+    <section class="py-16 bg-[var(--background-light)]">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl p-8 slide-up">
+                    <h2 class="text-2xl font-bold text-[var(--text)] mb-6 text-center">Кто такой дефектолог?</h2>
+                    <div class="prose prose-lg max-w-none text-[var(--text-light)] leading-relaxed">
+                        <p class="mb-4">
+                            <strong>Дефектолог (коррекционный педагог, специальный педагог)</strong> – понятие достаточно широкое. 
+                            Дефектологами являются педагоги, специализирующиеся на работе с детьми, имеющими различные 
+                            отклонения в развитии.
+                        </p>
+                        <p class="mb-4">
+                            Дефектологи занимаются обучением и воспитанием людей, имеющих особенности в развитии. 
+                            В своей работе они используют различные средства, направленные на коррекцию и компенсацию недостатков.
+                        </p>
+                        <p>
+                            Как дефектолог, я помогаю детям не только с речевыми нарушениями, но и с другими особенностями развития, 
+                            обеспечивая комплексный подход к коррекции и развитию.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Призыв к действию -->
+    <section class="py-16 bg-[var(--primary)] text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Начните коррекционную работу сегодня</h2>
+            <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Запишитесь на консультацию и получите профессиональную помощь в развитии речи вашего ребенка
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="contacts.html" class="bg-white text-[var(--primary)] px-8 py-4 rounded-lg font-bold hover:bg-opacity-90 transition-all duration-300 text-lg">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Записаться на консультацию
+                </a>
+                <a href="tel:+73422612253" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-[var(--primary)] transition-all duration-300 text-lg">
+                    <i class="fas fa-phone mr-2"></i>
+                    +7 (342) 261-22-53
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-[var(--text)] text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                            <i class="fas fa-comments text-white"></i>
+                        </div>
+                        <div class="font-bold text-lg">В.Н. Банщикова</div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Учитель-логопед-дефектолог. Профессиональная помощь в развитии речи детей 5-7 лет в Перми.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Контакты</h4>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-map-marker-alt text-[var(--primary-light)]"></i>
+                            <span>г. Пермь, ул. Пономарева, 91</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-phone text-[var(--primary-light)]"></i>
+                            <span>+7 (342) 261-22-53</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-[var(--primary-light)]"></i>
+                            <span>banshcikova81@mail.ru</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Расписание</h4>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div>Консультации для родителей:</div>
+                        <div class="font-semibold text-[var(--primary-light)]">Среда 18:00-19:00</div>
+                        <div>Место работы:</div>
+                        <div>МАДОУ "Детский сад № 419" г. Перми</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Навигация</h4>
+                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                        <a href="index.html" class="hover:text-[var(--primary-light)] transition-colors">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                        <a href="about.html" class="hover:text-[var(--primary-light)] transition-colors">Обо мне</a>
+                        <a href="services.html" class="hover:text-[var(--primary-light)] transition-colors">Услуги</a>
+                        <a href="parents.html" class="hover:text-[var(--primary-light)] transition-colors">Для родителей</a>
+                        <a href="lessons.html" class="hover:text-[var(--primary-light)] transition-colors">Мои уроки</a>
+                        <a href="contacts.html" class="hover:text-[var(--primary-light)] transition-colors">Контакты</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 Банщикова Валентина Николаевна. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Плавная прокрутка для ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

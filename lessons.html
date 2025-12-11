@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои уроки | Банщикова Валентина Николаевна</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            --primary: #6BAED6;
+            --primary-light: #9ECAE1;
+            --primary-dark: #4292C6;
+            --accent: #FDAE6B;
+            --text: #2D3748;
+            --text-light: #718096;
+            --background: #FFFFFF;
+            --background-light: #F7FAFC;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(107, 174, 214, 0.3);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #E2E8F0;
+            height: 100%;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .category-badge {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 12px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .coming-soon {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::before {
+            content: 'СКОРО';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans">
+    <!-- Шапка сайта -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                        <i class="fas fa-comments text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-[var(--text)] text-lg">В.Н. Банщикова</div>
+                        <div class="text-sm text-[var(--text-light)]">Логопед-дефектолог</div>
+                    </div>
+                </div>
+
+                <!-- Навигация для компьютеров -->
+                <nav class="hidden md:flex gap-8">
+                    <a href="index.html" class="nav-link text-[var(--text)] font-medium">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                    <a href="about.html" class="nav-link text-[var(--text)] font-medium">Обо мне</a>
+                    <a href="services.html" class="nav-link text-[var(--text)] font-medium">Услуги</a>
+                    <a href="parents.html" class="nav-link text-[var(--text)] font-medium">Для родителей</a>
+                    <a href="lessons.html" class="nav-link text-[var(--primary)] font-medium border-b-2 border-[var(--primary)]">Мои уроки</a>
+                    <a href="contacts.html" class="nav-link text-[var(--text)] font-medium">Контакты</a>
+                </nav>
+
+                <button id="menu-btn" class="md:hidden text-[var(--text)]">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Мобильное меню -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
+                <div class="flex flex-col gap-3">
+                    <a href="index.html" class="nav-link text-[var(--text)] font-medium py-2">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                    <a href="about.html" class="nav-link text-[var(--text)] font-medium py-2">Обо мне</a>
+                    <a href="services.html" class="nav-link text-[var(--text)] font-medium py-2">Услуги</a>
+                    <a href="parents.html" class="nav-link text-[var(--text)] font-medium py-2">Для родителей</a>
+                    <a href="lessons.html" class="nav-link text-[var(--primary)] font-medium py-2 border-l-4 border-[var(--primary)] pl-3">Мои уроки</a>
+                    <a href="contacts.html" class="nav-link text-[var(--text)] font-medium py-2">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="bg-gradient-to-br from-[var(--background-light)] to-blue-50 py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">Мои уроки</h1>
+                <p class="text-xl text-[var(--text-light)]">Методические материалы и видеоуроки для развития речи</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Введение -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center slide-up">
+                <div class="w-20 h-20 bg-[var(--primary)] rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-video text-white text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-[var(--text)] mb-6">Развивающие видеоуроки</h2>
+                <p class="text-lg text-[var(--text-light)] leading-relaxed mb-8">
+                    В этом разделе я буду размещать полезные видеоуроки и методические материалы 
+                    для занятий с детьми. Здесь вы найдете упражнения для развития речи, 
+                    артикуляционную гимнастику и многое другое.
+                </p>
+                <div class="bg-[var(--background-light)] rounded-2xl p-6 inline-block">
+                    <p class="text-[var(--text)] font-semibold">
+                        <i class="fas fa-info-circle text-[var(--primary)] mr-2"></i>
+                        Раздел находится в разработке - скоро появятся новые уроки!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Уроки -->
+    <section class="py-16 bg-[var(--background-light)]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-[var(--text)] mb-12">Доступные уроки</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Урок 1 -->
+                <div class="lesson-card slide-up">
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="category-badge inline-block mb-3">Артикуляция</div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Артикуляционная гимнастика</h3>
+                    <p class="text-[var(--text-light)] mb-4 text-sm">
+                        Комплекс упражнений для развития речевого аппарата. Подходит для ежедневных занятий.
+                    </p>
+                    <div class="flex justify-between items-center text-sm text-[var(--text-light)]">
+                        <span><i class="fas fa-clock mr-1"></i> 15 мин</span>
+                        <span><i class="fas fa-child mr-1"></i> 5-7 лет</span>
+                    </div>
+                </div>
+
+                <!-- Урок 2 -->
+                <div class="lesson-card slide-up">
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="category-badge inline-block mb-3">Игры</div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Речевые игры для дома</h3>
+                    <p class="text-[var(--text-light)] mb-4 text-sm">
+                        Веселые игры, которые можно проводить дома для развития речи и коммуникации.
+                    </p>
+                    <div class="flex justify-between items-center text-sm text-[var(--text-light)]">
+                        <span><i class="fas fa-clock mr-1"></i> 20 мин</span>
+                        <span><i class="fas fa-child mr-1"></i> 5-6 лет</span>
+                    </div>
+                </div>
+
+                <!-- Урок 3 -->
+                <div class="lesson-card slide-up">
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="category-badge inline-block mb-3">Звуки</div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Автоматизация звуков в речи</h3>
+                    <p class="text-[var(--text-light)] mb-4 text-sm">
+                        Методика закрепления правильного произношения звуков в повседневной речи.
+                    </p>
+                    <div class="flex justify-between items-center text-sm text-[var(--text-light)]">
+                        <span><i class="fas fa-clock mr-1"></i> 22 мин</span>
+                        <span><i class="fas fa-child mr-1"></i> 6-7 лет</span>
+                    </div>
+                </div>
+
+                <!-- Урок 4 - скоро -->
+                <div class="lesson-card slide-up coming-soon">
+                    <div class="video-placeholder">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="category-badge inline-block mb-3">Артикуляция</div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Упражнения для губ и языка</h3>
+                    <p class="text-[var(--text-light)] mb-4 text-sm">
+                        Специальные упражнения для укрепления мышц губ и языка.
+                    </p>
+                    <div class="flex justify-between items-center text-sm text-[var(--text-light)]">
+                        <span><i class="fas fa-clock mr-1"></i> 18 мин</span>
+                        <span><i class="fas fa-child mr-1"></i> 5-7 лет</span>
+                    </div>
+                </div>
+
+                <!-- Урок 5 - скоро -->
+                <div class="lesson-card slide-up coming-soon">
+                    <div class="video-placeholder">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="category-badge inline-block mb-3">Звуки</div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Постановка звука [Р]</h3>
+                    <p class="text-[var(--text-light)] mb-4 text-sm">
+                        Поэтапная методика постановки сложного звука [Р] с упражнениями.
+                    </p>
+                    <div class="flex justify-between items-center text-sm text-[var(--text-light)]">
+                        <span><i class="fas fa-clock mr-1"></i> 25 мин</span>
+                        <span><i class="fas fa-child mr-1"></i> 6-7 лет</span>
+                    </div>
+                </div>
+
+                <!-- Урок 6 - скоро -->
+                <div class="lesson-card slide-up coming-soon">
+                    <div class="video-placeholder">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="category-badge inline-block mb-3">Развитие</div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Развитие фонематического слуха</h3>
+                    <p class="text-[var(--text-light)] mb-4 text-sm">
+                        Упражнения для развития способности различать звуки речи.
+                    </p>
+                    <div class="flex justify-between items-center text-sm text-[var(--text-light)]">
+                        <span><i class="fas fa-clock mr-1"></i> 30 мин</span>
+                        <span><i class="fas fa-child mr-1"></i> 5-7 лет</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как использовать уроки -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-[var(--text)] mb-12">Как работать с уроками</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-play text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Смотрите уроки</h3>
+                    <p class="text-[var(--text-light)]">
+                        Внимательно просматривайте видеоуроки вместе с ребенком
+                    </p>
+                </div>
+                
+                <div class="text-center slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-repeat text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Повторяйте регулярно</h3>
+                    <p class="text-[var(--text-light)]">
+                        Занимайтесь регулярно для достижения лучших результатов
+                    </p>
+                </div>
+                
+                <div class="text-center slide-up">
+                    <div class="w-16 h-16 bg-[var(--primary)] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-comments text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[var(--text)] mb-3">Задавайте вопросы</h3>
+                    <p class="text-[var(--text-light)]">
+                        При возникновении вопросов обращайтесь на консультации
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Призыв к действию -->
+    <section class="py-16 bg-[var(--primary)] text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Нужна индивидуальная консультация?</h2>
+            <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Если у вас есть конкретные вопросы или нужна персональная помощь - 
+                запишитесь на очную консультацию
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="contacts.html" class="bg-white text-[var(--primary)] px-8 py-4 rounded-lg font-bold hover:bg-opacity-90 transition-all duration-300 text-lg">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Записаться на консультацию
+                </a>
+                <a href="tel:+73422612253" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-[var(--primary)] transition-all duration-300 text-lg">
+                    <i class="fas fa-phone mr-2"></i>
+                    +7 (342) 261-22-53
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-[var(--text)] text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                            <i class="fas fa-comments text-white"></i>
+                        </div>
+                        <div class="font-bold text-lg">В.Н. Банщикова</div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Учитель-логопед-дефектолог. Профессиональная помощь в развитии речи детей 5-7 лет в Перми.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Контакты</h4>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-map-marker-alt text-[var(--primary-light)]"></i>
+                            <span>г. Пермь, ул. Пономарева, 91</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-phone text-[var(--primary-light)]"></i>
+                            <span>+7 (342) 261-22-53</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-[var(--primary-light)]"></i>
+                            <span>banshcikova81@mail.ru</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Расписание</h4>
+                    <div class="space-y-3 text-sm text-gray-300">
+                        <div>Консультации для родителей:</div>
+                        <div class="font-semibold text-[var(--primary-light)]">Среда 18:00-19:00</div>
+                        <div>Место работы:</div>
+                        <div>МАДОУ "Детский сад № 419" г. Перми</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Навигация</h4>
+                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                        <a href="index.html" class="hover:text-[var(--primary-light)] transition-colors">Главная</a> <!-- ИСПРАВЛЕНО: in.html → index.html -->
+                        <a href="about.html" class="hover:text-[var(--primary-light)] transition-colors">Обо мне</a>
+                        <a href="services.html" class="hover:text-[var(--primary-light)] transition-colors">Услуги</a>
+                        <a href="parents.html" class="hover:text-[var(--primary-light)] transition-colors">Для родителей</a>
+                        <a href="lessons.html" class="hover:text-[var(--primary-light)] transition-colors">Мои уроки</a>
+                        <a href="contacts.html" class="hover:text-[var(--primary-light)] transition-colors">Контакты</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 Банщикова Валентина Николаевна. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Плавная прокрутка для ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
